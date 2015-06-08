@@ -1,0 +1,5 @@
+BeelabUserPasswordBundle Documentation
+======================================
+
+Coming soon...
+
