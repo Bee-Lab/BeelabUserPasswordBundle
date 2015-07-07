@@ -1,7 +1,9 @@
 BeelabUserPasswordBundle
 ========================
 
-This is still a work in progress. It should be stable soon!
+[![Build Status](https://travis-ci.org/Bee-Lab/BeelabUserPasswordBundle.png?branch=master)](https://travis-ci.org/Bee-Lab/BeelabUserPasswordBundle)
+
+This bundle add "lost password" functionality to [BeelabUserBundle](https://github.com/Bee-Lab/BeelabUserBundle).
 
 Documentation
 -------------
