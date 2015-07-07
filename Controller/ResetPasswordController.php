@@ -2,7 +2,7 @@
 
 namespace Beelab\UserPasswordBundle\Controller;
 
-use Beelab\UserPasswordBundle\Entity\ResetPassword;
+use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,14 +25,14 @@ class ResetPasswordController extends Controller
         $form = $this->createForm('beelab_reset_password');
         if ($form->handleRequest($request)->isValid()) {
             $this->get('event_dispatcher')->dispatch(
-                'app.new_password',
-                new NewPasswordEvent($user, 'beelab_new_password_confirm')
+                'beelab_user.new_password',
+                new NewPasswordEvent($form->getConfig()->getType()->getInnerType()->getUser(), 'beelab_new_password_confirm')
             );
 
             return $this->redirectToRoute('beelab_new_password_ok');
         }
 
-        return $this->render('BeelabUserPassword:ResetPassword:new.html.twig', array(
+        return $this->render('BeelabUserPasswordBundle:ResetPassword:new.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -46,7 +46,7 @@ class ResetPasswordController extends Controller
      */
     public function okAction()
     {
-        return $this->render('BeelabUserPassword:ResetPassword:ok.html.twig');
+        return $this->render('BeelabUserPasswordBundle:ResetPassword:ok.html.twig');
     }
 
     /**
@@ -56,8 +56,14 @@ class ResetPasswordController extends Controller
      *
      * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm")
      */
-    public function confirmAction(ResetPassword $resetPassword, Request $request)
+    public function confirmAction($token, Request $request)
     {
+        $resetPassword = $this->getDoctrine()
+            ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
+            ->findOneByToken($token);
+        if (is_null($resetPassword)) {
+            throw $this->createNotFoundException(sprintf('Token not found: %s', $token));
+        }
         $form = $this->createForm('beelab_new_password');
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
@@ -70,7 +76,7 @@ class ResetPasswordController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('BeelabUserPassword:ResetPassword:confirm.html.twig', array(
+        return $this->render('BeelabUserPasswordBundle:ResetPassword:confirm.html.twig', array(
             'form' => $form->createView(),
             'user' => $resetPassword->getUser(),
         ));

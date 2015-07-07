@@ -4,7 +4,6 @@ namespace Beelab\UserPasswordBundle\Mailer;
 
 use Beelab\UserBundle\User\UserInterface;
 use Swift_Mailer;
-use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class Mailer
@@ -29,7 +28,7 @@ class Mailer
      * @param EngineInterface $templating
      * @param array           $parameters
      */
-    public function __construct(Swift_Mailer $mailer, EngigneInterface $templating, array $parameters)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, array $parameters)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -49,11 +48,10 @@ class Mailer
         ));
         $message = \Swift_Message::newInstance()
             ->setSubject($this->parameters['subject'])
-            ->setFrom($this->parameters['from'])
+            ->setFrom($this->parameters['sender'])
             ->setTo($user->getEmail())
             ->setBody($rendered)
         ;
         $this->mailer->send($message);
     }
 }
-

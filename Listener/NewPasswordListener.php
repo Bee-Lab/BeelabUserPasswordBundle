@@ -2,12 +2,11 @@
 
 namespace Beelab\UserPasswordBundle\Listener;
 
-use Beelab\UserPasswordBundle\Entity\ResetPassword;
 use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
 use Beelab\UserPasswordBundle\Mailer\Mailer;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Util\SecureRandomInterface;
+use Symfony\Component\Routing\RouterInterface as Router;
+use Symfony\Component\Security\Core\Util\SecureRandomInterface as Random;
 
 /**
  * NewPasswordListener.
@@ -40,32 +39,41 @@ class NewPasswordListener
     private $appDir;
 
     /**
-     * @param ObjectManager         $em
-     * @param Mailer                $mailer
-     * @param RouterInterface       $router
-     * @param SecureRandomInterface $random
-     * @param string                $appDir
+     * @var string
      */
-    public function __construct(ObjectManager $em, Mailer $mailer, RouterInterface $router, SecureRandomInterface $random, $appDir)
+    private $class;
+
+    /**
+     * @param ObjectManager $em
+     * @param Mailer        $mailer
+     * @param Router        $router
+     * @param Random        $random
+     * @param string        $appDir
+     * @param string        $class
+     */
+    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, Random $random, $appDir, $class)
     {
-        $this->em     = $em;
+        $this->em = $em;
         $this->mailer = $mailer;
         $this->router = $router;
         $this->random = $random;
         $this->appDir = $appDir;
+        $this->class = $class;
     }
 
     /**
+     * When user request a password reset, save a token and send user an email with confirmation link.
+     *
      * @param NewPasswordEvent $event
      */
     public function onRequest(NewPasswordEvent $event)
     {
         $user = $event->getUser();
         $token = bin2hex($this->random->nextBytes(16));
-        $resetPassword = new ResetPassword($user, $token);
+        $resetPassword = new $this->class($user, $token);
         $this->em->persist($resetPassword);
         $this->em->flush();
-        $url = $this->router->generate($event->getConfirmRoute(), array('token' => $token), RouterInterface::ABSOLUTE_URL);
+        $url = $this->router->generate($event->getConfirmRoute(), array('token' => $token), Router::ABSOLUTE_URL);
         $this->mailer->sendResetPassword($url, $user);
     }
 }

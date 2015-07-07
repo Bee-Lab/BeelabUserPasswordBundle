@@ -1,0 +1,12 @@
+{% extends beelab_user_layout %}
+
+{% block title %}Reset password - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2>Reset password: choose a new password</h2>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-key"></i> OK</button>
+    {{ form_end(form) }}
+{% endblock %}

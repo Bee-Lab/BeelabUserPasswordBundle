@@ -9,7 +9,8 @@
             <argument>%beelab_user.password_min_length%</argument>
             <tag name="form.type" alias="beelab_new_password" />
         </service>
-        <service id="beelab_user.form_type.reset_password" class="%beelab_user.reset_password_form_type%">
+        <service id="beelab_user.form_type.reset_password" class="%beelab_user.password_reset_form_type%">
+            <argument type="service" id="beelab_user.manager"/>
             <tag name="form.type" alias="beelab_reset_password" />
         </service>
         <service id="beelab_user.listener.new_password" class="Beelab\UserPasswordBundle\Listener\NewPasswordListener">
@@ -18,9 +19,10 @@
             <argument type="service" id="router"/>
             <argument type="service" id="security.secure_random"/>
             <argument>%kernel.root_dir%</argument>
+            <argument>%beelab_user.password_reset_class%</argument>
             <tag name="kernel.event_listener" event="beelab_user.new_password" method="onRequest"/>
         </service>
-        <service id="beelab_user.mailer" class="eelab\UserPasswordBundle\Mailer\Mailer" public="false">
+        <service id="beelab_user.mailer" class="Beelab\UserPasswordBundle\Mailer\Mailer" public="false">
             <argument type="service" id="mailer"/>
             <argument type="service" id="templating"/>
             <argument>%beelab_user.email_parameters%</argument>

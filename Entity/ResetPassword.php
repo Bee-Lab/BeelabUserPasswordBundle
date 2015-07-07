@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ResetPassword.
  *
- * @ORM\MappedSuperClass()
+ * @ORM\MappedSuperclass()
  */
 abstract class ResetPassword
 {
@@ -23,6 +23,8 @@ abstract class ResetPassword
 
     /**
      * @var UserInterface
+     *
+     * You need to override this property and define a relation with your User entity
      */
     protected $user;
 
