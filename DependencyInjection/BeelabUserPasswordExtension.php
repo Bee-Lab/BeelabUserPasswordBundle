@@ -2,9 +2,9 @@
 
 namespace Beelab\UserPasswordBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -22,8 +22,10 @@ class BeelabUserPasswordExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('beelab_user.password_min_length', $config['password_min_length']);
         $container->setParameter('beelab_user.password_reset_class', $config['password_reset_class']);
         $container->setParameter('beelab_user.password_reset_form_type', $config['password_reset_form_type']);
+        $container->setParameter('beelab_user.new_password_form_type', $config['new_password_form_type']);
         $container->setParameter('beelab_user.email_parameters', $config['email_parameters']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

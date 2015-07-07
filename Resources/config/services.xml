@@ -5,6 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="beelab_user.form_type.new_password" class="%beelab_user.new_password_form_type%">
+            <argument>%beelab_user.password_min_length%</argument>
+            <tag name="form.type" alias="beelab_new_password" />
+        </service>
         <service id="beelab_user.form_type.reset_password" class="%beelab_user.reset_password_form_type%">
             <tag name="form.type" alias="beelab_reset_password" />
         </service>

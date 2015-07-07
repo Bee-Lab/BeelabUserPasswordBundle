@@ -65,7 +65,7 @@ class NewPasswordListener
         $resetPassword = new ResetPassword($user, $token);
         $this->em->persist($resetPassword);
         $this->em->flush();
-        $url = $this->router->generate($event->getConfirmRoute(), ['token' => $token], RouterInterface::ABSOLUTE_URL);
+        $url = $this->router->generate($event->getConfirmRoute(), array('token' => $token), RouterInterface::ABSOLUTE_URL);
         $this->mailer->sendResetPassword($url, $user);
     }
 }
