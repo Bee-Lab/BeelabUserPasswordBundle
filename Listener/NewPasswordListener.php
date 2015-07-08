@@ -36,11 +36,6 @@ class NewPasswordListener
     /**
      * @var string
      */
-    private $appDir;
-
-    /**
-     * @var string
-     */
     private $class;
 
     /**
@@ -48,16 +43,14 @@ class NewPasswordListener
      * @param Mailer        $mailer
      * @param Router        $router
      * @param Random        $random
-     * @param string        $appDir
      * @param string        $class
      */
-    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, Random $random, $appDir, $class)
+    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, Random $random, $class)
     {
         $this->em = $em;
         $this->mailer = $mailer;
         $this->router = $router;
         $this->random = $random;
-        $this->appDir = $appDir;
         $this->class = $class;
     }
 

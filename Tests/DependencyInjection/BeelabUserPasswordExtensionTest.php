@@ -4,7 +4,7 @@ namespace Beelab\UserPasswordBundle\Tests\DependencyInjection;
 
 use Beelab\UserPasswordBundle\DependencyInjection\BeelabUserPasswordExtension;
 
-class BeelabUserExtensionTest extends \PHPUnit_Framework_TestCase
+class BeelabUserPasswordExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadFailure()
     {
