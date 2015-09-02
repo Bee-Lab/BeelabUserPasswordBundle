@@ -2,6 +2,7 @@
 
 namespace Beelab\UserPasswordBundle\Controller;
 
+use Beelab\UserPasswordBundle\Event\ChangePasswordEvent;
 use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -66,6 +67,10 @@ class ResetPasswordController extends Controller
         }
         $form = $this->createForm('beelab_new_password');
         if ($form->handleRequest($request)->isValid()) {
+            $this->get('event_dispatcher')->dispatch(
+                'beelab_user.change_password',
+                new ChangePasswordEvent($resetPassword->getUser())
+            );
             $data = $form->getData();
             $resetPassword->getUser()->setPlainPassword($data['password']);
             $this->get('beelab_user.manager')->update($resetPassword->getUser(), false);

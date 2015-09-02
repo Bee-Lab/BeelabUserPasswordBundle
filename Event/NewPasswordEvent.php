@@ -6,7 +6,7 @@ use Beelab\UserBundle\User\UserInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * NewPasswordEvent.
+ * This event is fired when a user requests a new password.
  */
 class NewPasswordEvent extends Event
 {
