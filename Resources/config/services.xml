@@ -18,7 +18,6 @@
             <argument type="service" id="beelab_user.mailer"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.secure_random"/>
-            <argument>%kernel.root_dir%</argument>
             <argument>%beelab_user.password_reset_class%</argument>
             <tag name="kernel.event_listener" event="beelab_user.new_password" method="onRequest"/>
         </service>
