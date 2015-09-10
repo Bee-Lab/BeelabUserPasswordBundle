@@ -50,7 +50,7 @@ class Mailer
             ->setSubject($this->parameters['subject'])
             ->setFrom($this->parameters['sender'])
             ->setTo($user->getEmail())
-            ->setBody($rendered)
+            ->setBody($rendered, 'text/html')
         ;
         $this->mailer->send($message);
     }
