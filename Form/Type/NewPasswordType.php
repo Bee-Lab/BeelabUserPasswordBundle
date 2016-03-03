@@ -19,7 +19,7 @@ class NewPasswordType extends AbstractType
     /**
      * @param int $minLength
      */
-    public function __construct($minLength)
+    public function __construct($minLength = 8)
     {
         $this->minLength = $minLength;
     }
@@ -30,8 +30,8 @@ class NewPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', 'password', array(
-                'label'       => 'New password',
+            ->add('password', $this->isLegacy() ? 'password' : 'Symfony\Component\Form\Extension\Core\Type\PasswordType', array(
+                'label' => 'New password',
                 'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => $this->minLength))),
             ))
         ;
@@ -40,8 +40,24 @@ class NewPasswordType extends AbstractType
     /**
      * {@inheritdoc}
      */
+    public function getBlockPrefix()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * BC for Symfony < 3.0.
+     */
     public function getName()
     {
         return 'beelab_new_password';
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLegacy()
+    {
+        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }

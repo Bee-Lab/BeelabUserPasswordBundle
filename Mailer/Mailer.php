@@ -44,7 +44,7 @@ class Mailer
         $template = $this->parameters['template'];
         $rendered = $this->templating->render($template, array(
             'user' => $user,
-            'url'  => $url,
+            'url' => $url,
         ));
         $message = \Swift_Message::newInstance()
             ->setSubject($this->parameters['subject'])

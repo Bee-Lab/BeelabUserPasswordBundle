@@ -37,7 +37,7 @@ class NewPasswordTypeTest extends TypeTestCase
             'password' => 'paperino',
         );
 
-        $type = new NewPasswordType(8);
+        $type = $this->isLegacy() ? new NewPasswordType(8) : 'Beelab\UserPasswordBundle\Form\Type\NewPasswordType';
         $form = $this->factory->create($type, null, array('constraints' => array()));
 
         // send directly data to form
@@ -45,5 +45,13 @@ class NewPasswordTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLegacy()
+    {
+        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }

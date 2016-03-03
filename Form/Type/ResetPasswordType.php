@@ -38,7 +38,7 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email', array(
+            ->add('email', $this->isLegacy() ? 'email' : 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'constraints' => array(
                     new Assert\NotBlank(),
                     new Assert\Email(),
@@ -50,6 +50,14 @@ class ResetPasswordType extends AbstractType
 
     /**
      * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * BC for Symfony < 3.0.
      */
     public function getName()
     {
@@ -76,5 +84,13 @@ class ResetPasswordType extends AbstractType
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLegacy()
+    {
+        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }

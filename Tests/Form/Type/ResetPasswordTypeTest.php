@@ -6,6 +6,7 @@ use Beelab\UserPasswordBundle\Form\Type\ResetPasswordType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 
@@ -31,16 +32,31 @@ class ResetPasswordTypeTest extends TypeTestCase
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
     }
 
+    protected function getExtensions()
+    {
+        $userManager = $this->getMockBuilder('\Beelab\UserBundle\Manager\UserManager')
+            ->disableOriginalConstructor()->getMock();
+        $type = new ResetPasswordType($userManager);
+
+        return array(
+            // register the type instances with the PreloadedExtension
+            new PreloadedExtension(array($type), array()),
+        );
+    }
+
     public function testSubmitValidData()
     {
         $formData = array(
             'email' => 'paperino@example.org',
         );
 
-        $userManager = $this->getMockBuilder('\Beelab\UserBundle\Manager\UserManager')
-            ->disableOriginalConstructor()->getMock();
-
-        $type = new ResetPasswordType($userManager);
+        if ($this->isLegacy()) {
+            $userManager = $this->getMockBuilder('\Beelab\UserBundle\Manager\UserManager')
+                ->disableOriginalConstructor()->getMock();
+            $type = new ResetPasswordType($userManager);
+        } else {
+            $type = 'Beelab\UserPasswordBundle\Form\Type\ResetPasswordType';
+        }
         $form = $this->factory->create($type, null, array('constraints' => array()));
 
         // send directly data to form
@@ -48,5 +64,13 @@ class ResetPasswordTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLegacy()
+    {
+        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }
