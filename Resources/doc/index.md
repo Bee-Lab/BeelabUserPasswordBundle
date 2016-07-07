@@ -23,7 +23,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Beelab\UserBundle\BeelabUserPasswordBundle(),
+        new Beelab\UserPasswordBundle\BeelabUserPasswordBundle(),
     );
 }
 ```
@@ -74,6 +74,17 @@ beelab_user_password:
         template: '::email_reset_password.html.twig'  # accept 'user' and 'url' parameters
         subject: Your reset password mail subject
         sender: noreply@example.com
+```
+
+Add routes:
+
+```yaml
+# app/config/routing.yml
+
+beelab_user_password:
+    resource: "@BeelabUserPasswordBundle/Controller/"
+    type:     annotation
+    prefix:   /
 ```
 
 ### 3. Customization
