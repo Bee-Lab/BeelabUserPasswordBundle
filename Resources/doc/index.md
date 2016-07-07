@@ -33,7 +33,7 @@ be activated also. Please refer to BeelabUserBundle documentation.
 
 ### 2. Configuration
 
-Create a ``ResetePassword`` entity class.
+Create a `ResetPassword` entity class.
 Example:
 
 ```php
@@ -90,7 +90,7 @@ beelab_user_password:
 
 ### 4. Events
 
-Bundle exposes two events: ``beelab_user.new_password`` and ``beelab_user.change_password``.
+Bundle exposes two events: `beelab_user.new_password` and `beelab_user.change_password`.
 
 First event is used internally by bundle, and is fired when user asks for a password reset.
 
