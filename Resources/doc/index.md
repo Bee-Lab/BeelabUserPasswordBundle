@@ -71,7 +71,7 @@ beelab_user_password:
     password_reset_class: AppBundle\Entity\ResetPassword
     email_parameters:
         # following values need to be customized
-        template: '::email_reset_password.html.twig'
+        template: '::email_reset_password.html.twig'  # accept 'user' and 'url' parameters
         subject: Your reset password mail subject
         sender: noreply@example.com
 ```
@@ -87,6 +87,31 @@ beelab_user_password:
     password_reset_form_type: AppBundle\Form\Type\PasswordResetFormType
     new_password_form_type:   AppBundle\Form\Type\NewPasswordFormType
 ```
+
+The following is an example of template for `email_parameters` options (see above)
+
+```html+jinja
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta content="telephone=no" name="format-detection" />
+	<title>Password reset</title>
+	<style type="text/css" media="screen">
+		body { padding:0 !important; margin:0 !important; display:block !important; -webkit-text-size-adjust:none; background:.background-body }
+		a { color:#ec008c; text-decoration:underline }
+		p { padding:0 !important; margin:0 !important }
+	</style>
+</head>
+<body class="body" style="padding:0 !important; margin:0 !important; display:block !important; -webkit-text-size-adjust:none; background: #f9f9f9">
+    <p>You requested a password reset for the following user: {{ user }}.</p>
+    <p>If you did not request a reset, you can discard this message.</p>
+    <p>Otherwhise, click on the following link to reset your password:</p>
+    <p><a href="{{ url }}">{{ url }}</a></p>
+</body>
+</html>
+```
+
 
 ### 4. Events
 
