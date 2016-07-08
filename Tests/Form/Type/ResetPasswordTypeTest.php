@@ -38,17 +38,17 @@ class ResetPasswordTypeTest extends TypeTestCase
             ->disableOriginalConstructor()->getMock();
         $type = new ResetPasswordType($userManager);
 
-        return array(
+        return [
             // register the type instances with the PreloadedExtension
-            new PreloadedExtension(array($type), array()),
-        );
+            new PreloadedExtension([$type], []),
+        ];
     }
 
     public function testSubmitValidData()
     {
-        $formData = array(
+        $formData = [
             'email' => 'paperino@example.org',
-        );
+        ];
 
         if ($this->isLegacy()) {
             $userManager = $this->getMockBuilder('\Beelab\UserBundle\Manager\UserManager')
@@ -57,7 +57,7 @@ class ResetPasswordTypeTest extends TypeTestCase
         } else {
             $type = 'Beelab\UserPasswordBundle\Form\Type\ResetPasswordType';
         }
-        $form = $this->factory->create($type, null, array('constraints' => array()));
+        $form = $this->factory->create($type, null, ['constraints' => []]);
 
         // send directly data to form
         $form->submit($formData);

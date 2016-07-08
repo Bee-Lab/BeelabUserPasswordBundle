@@ -6,7 +6,6 @@ use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
 use Beelab\UserPasswordBundle\Mailer\Mailer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\RouterInterface as Router;
-use Symfony\Component\Security\Core\Util\SecureRandomInterface as Random;
 
 /**
  * NewPasswordListener.
@@ -29,11 +28,6 @@ class NewPasswordListener
     private $router;
 
     /**
-     * @var SecureRandomInterface
-     */
-    private $random;
-
-    /**
      * @var string
      */
     private $class;
@@ -42,15 +36,13 @@ class NewPasswordListener
      * @param ObjectManager $em
      * @param Mailer        $mailer
      * @param Router        $router
-     * @param Random        $random
      * @param string        $class
      */
-    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, Random $random, $class)
+    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, $class)
     {
         $this->em = $em;
         $this->mailer = $mailer;
         $this->router = $router;
-        $this->random = $random;
         $this->class = $class;
     }
 
@@ -62,11 +54,11 @@ class NewPasswordListener
     public function onRequest(NewPasswordEvent $event)
     {
         $user = $event->getUser();
-        $token = bin2hex($this->random->nextBytes(16));
+        $token = bin2hex(random_bytes(16));
         $resetPassword = new $this->class($user, $token);
         $this->em->persist($resetPassword);
         $this->em->flush();
-        $url = $this->router->generate($event->getConfirmRoute(), array('token' => $token), Router::ABSOLUTE_URL);
+        $url = $this->router->generate($event->getConfirmRoute(), ['token' => $token], Router::ABSOLUTE_URL);
         $this->mailer->sendResetPassword($url, $user);
     }
 }

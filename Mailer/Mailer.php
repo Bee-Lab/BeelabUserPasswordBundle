@@ -42,10 +42,10 @@ class Mailer
     public function sendResetPassword($url, UserInterface $user)
     {
         $template = $this->parameters['template'];
-        $rendered = $this->templating->render($template, array(
+        $rendered = $this->templating->render($template, [
             'user' => $user,
             'url' => $url,
-        ));
+        ]);
         $message = \Swift_Message::newInstance()
             ->setSubject($this->parameters['subject'])
             ->setFrom($this->parameters['sender'])

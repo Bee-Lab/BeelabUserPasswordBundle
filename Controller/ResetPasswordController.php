@@ -23,7 +23,7 @@ class ResetPasswordController extends Controller
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm('beelab_reset_password');
+        $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\ResetPasswordType');
         if ($form->handleRequest($request)->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.new_password',
@@ -33,9 +33,9 @@ class ResetPasswordController extends Controller
             return $this->redirectToRoute('beelab_new_password_ok');
         }
 
-        return $this->render('BeelabUserPasswordBundle:ResetPassword:new.html.twig', array(
+        return $this->render('BeelabUserPasswordBundle:ResetPassword:new.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -65,7 +65,7 @@ class ResetPasswordController extends Controller
         if (is_null($resetPassword)) {
             throw $this->createNotFoundException(sprintf('Token not found: %s', $token));
         }
-        $form = $this->createForm('beelab_new_password');
+        $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\NewPasswordType');
         if ($form->handleRequest($request)->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.change_password',
@@ -81,9 +81,9 @@ class ResetPasswordController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('BeelabUserPasswordBundle:ResetPassword:confirm.html.twig', array(
+        return $this->render('BeelabUserPasswordBundle:ResetPassword:confirm.html.twig', [
             'form' => $form->createView(),
             'user' => $resetPassword->getUser(),
-        ));
+        ]);
     }
 }

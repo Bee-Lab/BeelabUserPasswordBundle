@@ -33,12 +33,12 @@ class NewPasswordTypeTest extends TypeTestCase
 
     public function testSubmitValidData()
     {
-        $formData = array(
+        $formData = [
             'password' => 'paperino',
-        );
+        ];
 
         $type = $this->isLegacy() ? new NewPasswordType(8) : 'Beelab\UserPasswordBundle\Form\Type\NewPasswordType';
-        $form = $this->factory->create($type, null, array('constraints' => array()));
+        $form = $this->factory->create($type, null, ['constraints' => []]);
 
         // send directly data to form
         $form->submit($formData);
