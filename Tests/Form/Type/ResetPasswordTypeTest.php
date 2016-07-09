@@ -16,7 +16,7 @@ class ResetPasswordTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $validator = $this->getMock('\Symfony\Component\Validator\Validator\ValidatorInterface');
+        $validator = $this->getMockBuilder('\Symfony\Component\Validator\Validator\ValidatorInterface')->getMock();
         $validator->method('validate')->will($this->returnValue(new ConstraintViolationList()));
 
         $this->factory = Forms::createFormFactoryBuilder()
@@ -28,7 +28,7 @@ class ResetPasswordTypeTest extends TypeTestCase
             )
             ->getFormFactory();
 
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
     }
 
