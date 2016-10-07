@@ -28,7 +28,7 @@ public function registerBundles()
 }
 ```
 
-If you didn't already installted [BeelabUserBundle](https://github.com/Bee-Lab/BeelabUserBundle), that bundle needs to
+If you didn't already installed [BeelabUserBundle](https://github.com/Bee-Lab/BeelabUserBundle), that bundle needs to
 be activated also. Please refer to BeelabUserBundle documentation.
 
 ### 2. Configuration
