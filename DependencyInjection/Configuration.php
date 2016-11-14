@@ -49,6 +49,7 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->cannotBeEmpty()
                         ->end()
+                        ->scalarNode('bcc')->end()
                     ->end()
                 ->end()
             ->end()

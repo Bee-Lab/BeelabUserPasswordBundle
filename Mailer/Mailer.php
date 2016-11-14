@@ -46,12 +46,17 @@ class Mailer
             'user' => $user,
             'url' => $url,
         ]);
-        $message = \Swift_Message::newInstance()
+        $message = $this->mailer
+            ->createMessage()
             ->setSubject($this->parameters['subject'])
             ->setFrom($this->parameters['sender'])
             ->setTo($user->getEmail())
             ->setBody($rendered, 'text/html')
         ;
+        if (!empty($this->parameters['bcc'])) {
+            $message->setBcc($this->parameters['bcc']);
+
+        }
         $this->mailer->send($message);
     }
 }

@@ -21,10 +21,10 @@ Enable bundle in the kernel:
 // app/AppKernel.php
 public function registerBundles()
 {
-    $bundles = array(
+    $bundles = [
         // ...
         new Beelab\UserPasswordBundle\BeelabUserPasswordBundle(),
-    );
+    ];
 }
 ```
 
@@ -66,7 +66,7 @@ Insert in main configuration:
 ```yaml
 # app/config/config.yml
 
-# BeelabUserPassword Configuration
+# BeelabUserPassword configuration
 beelab_user_password:
     password_reset_class: AppBundle\Entity\ResetPassword
     email_parameters:
@@ -74,6 +74,7 @@ beelab_user_password:
         template: '::email_reset_password.html.twig'  # accept 'user' and 'url' parameters
         subject: Your reset password mail subject
         sender: noreply@example.com
+        bcc: youremail@example.com  # this is the only option that is not required
 ```
 
 Add routes:
@@ -83,8 +84,7 @@ Add routes:
 
 beelab_user_password:
     resource: "@BeelabUserPasswordBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    type: annotation
 ```
 
 ### 3. Customization
@@ -122,7 +122,6 @@ The following is an example of template for `email_parameters` options (see abov
 </body>
 </html>
 ```
-
 
 ### 4. Events
 
