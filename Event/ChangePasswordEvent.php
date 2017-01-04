@@ -26,7 +26,7 @@ class ChangePasswordEvent extends Event
     /**
      * @return UserInterface
      */
-    public function getUser()
+    public function getUser(): UserInterface
     {
         return $this->user;
     }

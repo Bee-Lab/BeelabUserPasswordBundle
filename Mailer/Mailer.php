@@ -39,7 +39,7 @@ class Mailer
      * @param string        $url
      * @param UserInterface $user
      */
-    public function sendResetPassword($url, UserInterface $user)
+    public function sendResetPassword(string $url, UserInterface $user)
     {
         $template = $this->parameters['template'];
         $rendered = $this->templating->render($template, [
@@ -50,12 +50,11 @@ class Mailer
             ->createMessage()
             ->setSubject($this->parameters['subject'])
             ->setFrom($this->parameters['sender'])
-            ->setTo($user->getEmail())
+            ->setTo($user->getUsername())   // username should be email
             ->setBody($rendered, 'text/html')
         ;
         if (!empty($this->parameters['bcc'])) {
             $message->setBcc($this->parameters['bcc']);
-
         }
         $this->mailer->send($message);
     }

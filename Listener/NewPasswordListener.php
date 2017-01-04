@@ -38,7 +38,7 @@ class NewPasswordListener
      * @param Router        $router
      * @param string        $class
      */
-    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, $class)
+    public function __construct(ObjectManager $em, Mailer $mailer, Router $router, string $class)
     {
         $this->em = $em;
         $this->mailer = $mailer;

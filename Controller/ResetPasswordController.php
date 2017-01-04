@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * ResetPasswordController.
@@ -18,10 +19,9 @@ class ResetPasswordController extends Controller
      * New password.
      *
      * @Method({"GET", "POST"})
-     *
      * @Route("/password/new", name="beelab_new_password")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request): Response
     {
         $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\ResetPasswordType');
         if ($form->handleRequest($request)->isValid()) {
@@ -42,10 +42,9 @@ class ResetPasswordController extends Controller
      * New password OK.
      *
      * @Method("GET")
-     *
      * @Route("/password/new/ok", name="beelab_new_password_ok")
      */
-    public function okAction()
+    public function okAction(): Response
     {
         return $this->render('BeelabUserPasswordBundle:ResetPassword:ok.html.twig');
     }
@@ -54,10 +53,9 @@ class ResetPasswordController extends Controller
      * Confirm bew password.
      *
      * @Method({"GET", "POST"})
-     *
      * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm")
      */
-    public function confirmAction($token, Request $request)
+    public function confirmAction(string $token, Request $request): Response
     {
         $resetPassword = $this->getDoctrine()
             ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
