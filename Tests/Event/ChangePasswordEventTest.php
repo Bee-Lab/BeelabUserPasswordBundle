@@ -2,10 +2,16 @@
 
 namespace Beelab\UserPasswordBundle\Tests\Event;
 
-class ChangePasswordEventTest extends \PHPUnit_Framework_TestCase
+use Beelab\UserBundle\User\UserInterface;
+use Beelab\UserPasswordBundle\Event\ChangePasswordEvent;
+use PHPUnit\Framework\TestCase;
+
+class ChangePasswordEventTest extends TestCase
 {
-    public function testOnRequest()
+    public function testGetUser()
     {
-        $this->markTestIncomplete();
+        $user = $this->createMock(UserInterface::class);
+        $event = new ChangePasswordEvent($user);
+        $this->assertInstanceOf(UserInterface::class, $event->getUser());
     }
 }

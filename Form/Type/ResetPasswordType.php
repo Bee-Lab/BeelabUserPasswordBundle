@@ -65,7 +65,7 @@ class ResetPasswordType extends AbstractType
     public function findUser($email, ExecutionContextInterface $context)
     {
         if (is_null($user = $this->userManager->loadUserByUsername($email))) {
-            $context->buildViolation('Email not found.')->atPath('email')->addViolation();       
+            $context->buildViolation('Email not found.')->atPath('email')->addViolation();
         }
         $this->user = $user;
     }

@@ -3,8 +3,9 @@
 namespace Beelab\UserPasswordBundle\Tests\DependencyInjection;
 
 use Beelab\UserPasswordBundle\DependencyInjection\BeelabUserPasswordExtension;
+use PHPUnit\Framework\TestCase;
 
-class BeelabUserPasswordExtensionTest extends \PHPUnit_Framework_TestCase
+class BeelabUserPasswordExtensionTest extends TestCase
 {
     public function testLoadFailure()
     {
@@ -14,6 +15,7 @@ class BeelabUserPasswordExtensionTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder('Beelab\\UserPasswordBundle\\DependencyInjection\\BeelabUserPasswordExtension')->getMock();
 
         $extension->load([[]], $container);
+        $this->assertFalse(false);
     }
 
     public function testLoadSetParameters()
@@ -36,5 +38,6 @@ class BeelabUserPasswordExtensionTest extends \PHPUnit_Framework_TestCase
             ['email_parameters' => ['template' => 'a', 'sender' => 'b', 'subject' => 'c']],
         ];
         $extension->load($configs, $container);
+        $this->assertTrue(true);
     }
 }

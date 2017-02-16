@@ -17,10 +17,13 @@
         "beelab/user-bundle": "^2.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": { "Beelab\\UserPasswordBundle\\": "" }
+    },
+    "autoload-dev": {
+        "classmap": [ "Test/phpunit-bc" ]
     },
     "extra": {
         "branch-alias": {

@@ -3,8 +3,9 @@
 namespace Beelab\UserPasswordBundle\Tests\DependencyInjection;
 
 use Beelab\UserPasswordBundle\DependencyInjection\Configuration;
+use PHPUnit\Framework\TestCase;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     public function testThatCanGetConfigTreeBuilder()
     {
