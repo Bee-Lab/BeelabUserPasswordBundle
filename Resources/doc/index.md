@@ -87,6 +87,23 @@ beelab_user_password:
     type: annotation
 ```
 
+In case your firewall is requiring an authenticated user for whole application, don't forget to
+add a security rule for the routes of this bundle, since the password reset procedure is supposed
+to be performed by a non-authenticated user.
+
+For example:
+
+```yaml
+# app/config/security.yml
+
+security:
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+```
+
 ### 3. Customization
 
 You can extends bundle forms, then add to configuration:
