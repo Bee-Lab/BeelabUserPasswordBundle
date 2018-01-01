@@ -14,7 +14,7 @@ Run from terminal:
 $ composer require beelab/user-password-bundle
 ```
 
-Enable bundle in the kernel:
+If you don't use Flex, you need to manually enable bundle in your kernel:
 
 ```php
 <?php
@@ -58,7 +58,6 @@ class ResetPassword extends BaseResetPassword
      */
     protected $user;
 }
-
 ```
 
 Insert in main configuration:

@@ -60,7 +60,7 @@ class ResetPasswordController extends Controller
         $resetPassword = $this->getDoctrine()
             ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
             ->findOneByToken($token);
-        if (is_null($resetPassword)) {
+        if (null === $resetPassword) {
             throw $this->createNotFoundException(sprintf('Token not found: %s', $token));
         }
         $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\NewPasswordType');
