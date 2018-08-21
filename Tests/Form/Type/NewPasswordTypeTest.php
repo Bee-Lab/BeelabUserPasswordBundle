@@ -2,10 +2,9 @@
 
 namespace Beelab\UserPasswordBundle\Tests\Form\Type;
 
-use Beelab\UserPasswordBundle\Form\Type\NewPasswordType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
-use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 
@@ -37,21 +36,12 @@ class NewPasswordTypeTest extends TypeTestCase
             'password' => 'paperino',
         ];
 
-        $type = $this->isLegacy() ? new NewPasswordType(8) : 'Beelab\UserPasswordBundle\Form\Type\NewPasswordType';
-        $form = $this->factory->create($type, null, ['constraints' => []]);
+        $form = $this->factory->create('Beelab\UserPasswordBundle\Form\Type\NewPasswordType', null, ['constraints' => []]);
 
         // send directly data to form
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
-    }
-
-    /**
-     * @return bool
-     */
-    private function isLegacy()
-    {
-        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }

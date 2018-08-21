@@ -1,12 +1,12 @@
 BeelabUserPasswordBundle Documentation
 ======================================
 
-1. [Install Bundle](#1-install-bundle)
+1. [Installation](#1-installation)
 2. [Configuration](#2-configuration)
 3. [Customizations](#3-customizations)
 4. [Events](#4-events)
 
-### 1. Install Bundle
+### 1. Installation
 
 Run from terminal:
 
@@ -14,7 +14,7 @@ Run from terminal:
 $ composer require beelab/user-password-bundle
 ```
 
-Enable bundle in the kernel:
+If you don't use Flex, you need to manually enable bundle in your kernel:
 
 ```php
 <?php
@@ -58,7 +58,6 @@ class ResetPassword extends BaseResetPassword
      */
     protected $user;
 }
-
 ```
 
 Insert in main configuration:
@@ -83,8 +82,25 @@ Add routes:
 # app/config/routing.yml
 
 beelab_user_password:
-    resource: "@BeelabUserPasswordBundle/Controller/"
+    resource: '@BeelabUserPasswordBundle/Controller/'
     type: annotation
+```
+
+In case your firewall is requiring an authenticated user for whole application, don't forget to
+add a security rule for the routes of this bundle, since the password reset procedure is supposed
+to be performed by an anonymous user.
+
+For example:
+
+```yaml
+# app/config/security.yml
+
+security:
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
+
 ```
 
 ### 3. Customization
@@ -96,7 +112,7 @@ You can extends bundle forms, then add to configuration:
 
 beelab_user_password:
     password_reset_form_type: AppBundle\Form\Type\PasswordResetFormType
-    new_password_form_type:   AppBundle\Form\Type\NewPasswordFormType
+    new_password_form_type: AppBundle\Form\Type\NewPasswordFormType
 ```
 
 The following is an example of template for `email_parameters` options (see above)

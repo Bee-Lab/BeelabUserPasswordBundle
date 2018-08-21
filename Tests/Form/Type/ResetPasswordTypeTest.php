@@ -4,8 +4,8 @@ namespace Beelab\UserPasswordBundle\Tests\Form\Type;
 
 use Beelab\UserPasswordBundle\Form\Type\ResetPasswordType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
-use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -50,27 +50,12 @@ class ResetPasswordTypeTest extends TypeTestCase
             'email' => 'paperino@example.org',
         ];
 
-        if ($this->isLegacy()) {
-            $userManager = $this->getMockBuilder('\Beelab\UserBundle\Manager\UserManager')
-                ->disableOriginalConstructor()->getMock();
-            $type = new ResetPasswordType($userManager);
-        } else {
-            $type = 'Beelab\UserPasswordBundle\Form\Type\ResetPasswordType';
-        }
-        $form = $this->factory->create($type, null, ['constraints' => []]);
+        $form = $this->factory->create('Beelab\UserPasswordBundle\Form\Type\ResetPasswordType', null, ['constraints' => []]);
 
         // send directly data to form
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
-    }
-
-    /**
-     * @return bool
-     */
-    private function isLegacy()
-    {
-        return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
     }
 }

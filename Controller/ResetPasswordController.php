@@ -24,7 +24,7 @@ class ResetPasswordController extends Controller
     public function newAction(Request $request): Response
     {
         $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\ResetPasswordType');
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.new_password',
                 new NewPasswordEvent($form->getConfig()->getType()->getInnerType()->getUser(), 'beelab_new_password_confirm')
@@ -60,11 +60,11 @@ class ResetPasswordController extends Controller
         $resetPassword = $this->getDoctrine()
             ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
             ->findOneByToken($token);
-        if (is_null($resetPassword)) {
+        if (null === $resetPassword) {
             throw $this->createNotFoundException(sprintf('Token not found: %s', $token));
         }
         $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\NewPasswordType');
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.change_password',
                 new ChangePasswordEvent($resetPassword->getUser())

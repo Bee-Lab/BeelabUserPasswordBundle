@@ -3,7 +3,7 @@
 namespace Beelab\UserPasswordBundle\Tests\Mailer;
 
 use Beelab\UserPasswordBundle\Mailer\Mailer;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MailerTest extends TestCase
 {

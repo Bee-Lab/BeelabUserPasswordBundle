@@ -6,6 +6,7 @@ use Beelab\UserBundle\Manager\UserManager;
 use Beelab\UserBundle\User\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -64,10 +65,11 @@ class ResetPasswordType extends AbstractType
      */
     public function findUser($email, ExecutionContextInterface $context)
     {
-        if (is_null($user = $this->userManager->loadUserByUsername($email))) {
-            $context->buildViolation('Email not found.')->atPath('email')->addViolation();       
+        try {
+            $this->user = $this->userManager->loadUserByUsername($email);
+        } catch (UsernameNotFoundException $exception) {
+            $context->buildViolation('Email not found.')->atPath('email')->addViolation();
         }
-        $this->user = $user;
     }
 
     /**
