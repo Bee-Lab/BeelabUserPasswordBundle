@@ -53,7 +53,7 @@ class ResetPasswordController extends Controller
     /**
      * Confirm bew password.
      *
-     * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm", methods{"GET", "POST"})
+     * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm", methods={"GET", "POST"})
      * @param string  $token
      * @param Request $request
      *
