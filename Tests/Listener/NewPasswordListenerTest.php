@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class NewPasswordListenerTest extends TestCase
 {
-    public function testOnRequest()
+    public function testOnRequest(): void
     {
         $manager = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
         $mailer = $this->getMockBuilder('Beelab\UserPasswordBundle\Mailer\Mailer')

@@ -51,7 +51,7 @@ class NewPasswordListener
      *
      * @param NewPasswordEvent $event
      */
-    public function onRequest(NewPasswordEvent $event)
+    public function onRequest(NewPasswordEvent $event): void
     {
         $user = $event->getUser();
         $token = bin2hex(random_bytes(16));

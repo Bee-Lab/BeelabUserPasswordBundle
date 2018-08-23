@@ -4,10 +4,10 @@ namespace Beelab\UserPasswordBundle\Controller;
 
 use Beelab\UserPasswordBundle\Event\ChangePasswordEvent;
 use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ResetPasswordController.
@@ -18,6 +18,7 @@ class ResetPasswordController extends Controller
      * New password.
      *
      * @Route("/password/new", name="beelab_new_password", methods={"GET", "POST"})
+     *
      * @param Request $request
      *
      * @return Response
@@ -54,6 +55,7 @@ class ResetPasswordController extends Controller
      * Confirm bew password.
      *
      * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm", methods={"GET", "POST"})
+     *
      * @param string  $token
      * @param Request $request
      *

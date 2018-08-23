@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BeelabUserPasswordExtensionTest extends TestCase
 {
-    public function testLoadFailure()
+    public function testLoadFailure(): void
     {
         $container = $this->getMockBuilder('Symfony\\Component\\DependencyInjection\\ContainerBuilder')
             ->disableOriginalConstructor()->getMock();
@@ -18,7 +18,7 @@ class BeelabUserPasswordExtensionTest extends TestCase
         $this->assertFalse(false);
     }
 
-    public function testLoadSetParameters()
+    public function testLoadSetParameters(): void
     {
         $container = $this->getMockBuilder('Symfony\\Component\\DependencyInjection\\ContainerBuilder')
             ->disableOriginalConstructor()->getMock();

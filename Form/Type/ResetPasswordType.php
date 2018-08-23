@@ -36,7 +36,7 @@ class ResetPasswordType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', [
@@ -63,7 +63,7 @@ class ResetPasswordType extends AbstractType
      * @param string                    $email
      * @param ExecutionContextInterface $context
      */
-    public function findUser($email, ExecutionContextInterface $context)
+    public function findUser($email, ExecutionContextInterface $context): void
     {
         try {
             $this->user = $this->userManager->loadUserByUsername($email);

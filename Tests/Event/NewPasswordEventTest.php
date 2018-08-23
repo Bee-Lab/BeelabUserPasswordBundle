@@ -8,14 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class NewPasswordEventTest extends TestCase
 {
-    public function testGetUser()
+    public function testGetUser(): void
     {
         $user = $this->createMock(UserInterface::class);
         $event = new NewPasswordEvent($user, 'foo');
         $this->assertInstanceOf(UserInterface::class, $event->getUser());
     }
 
-    public function testGetConfirmRoute()
+    public function testGetConfirmRoute(): void
     {
         $user = $this->createMock(UserInterface::class);
         $event = new NewPasswordEvent($user, 'bar');

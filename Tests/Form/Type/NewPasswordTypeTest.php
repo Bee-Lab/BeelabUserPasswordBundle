@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 class NewPasswordTypeTest extends TypeTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ class NewPasswordTypeTest extends TypeTestCase
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
     }
 
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $formData = [
             'password' => 'paperino',

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase
 {
-    public function testThatCanGetConfigTreeBuilder()
+    public function testThatCanGetConfigTreeBuilder(): void
     {
         $configuration = new Configuration();
         $this->assertInstanceOf(

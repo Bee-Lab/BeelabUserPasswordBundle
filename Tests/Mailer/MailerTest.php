@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class MailerTest extends TestCase
 {
-    public function testSendResetPassword()
+    public function testSendResetPassword(): void
     {
         $swift = $this->getMockBuilder('Swift_Mailer')->disableOriginalConstructor()->getMock();
         $templating = $this->createMock('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface');

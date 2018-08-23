@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 class ResetPasswordTypeTest extends TypeTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -44,7 +44,7 @@ class ResetPasswordTypeTest extends TypeTestCase
         ];
     }
 
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $formData = [
             'email' => 'paperino@example.org',

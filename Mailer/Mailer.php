@@ -39,7 +39,7 @@ class Mailer
      * @param string        $url
      * @param UserInterface $user
      */
-    public function sendResetPassword(string $url, UserInterface $user)
+    public function sendResetPassword(string $url, UserInterface $user): void
     {
         $template = $this->parameters['template'];
         $rendered = $this->templating->render($template, [

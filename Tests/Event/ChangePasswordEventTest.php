@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ChangePasswordEventTest extends TestCase
 {
-    public function testGetUser()
+    public function testGetUser(): void
     {
         $user = $this->createMock(UserInterface::class);
         $event = new ChangePasswordEvent($user);
