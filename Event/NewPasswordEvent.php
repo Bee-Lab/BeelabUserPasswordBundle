@@ -20,27 +20,17 @@ class NewPasswordEvent extends Event
      */
     protected $confirmRoute;
 
-    /**
-     * @param UserInterface $user
-     * @param string        $confirmRoute
-     */
     public function __construct(UserInterface $user, string $confirmRoute)
     {
         $this->user = $user;
         $this->confirmRoute = $confirmRoute;
     }
 
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
     public function getConfirmRoute(): string
     {
         return $this->confirmRoute;

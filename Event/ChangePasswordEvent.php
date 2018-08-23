@@ -15,17 +15,11 @@ class ChangePasswordEvent extends Event
      */
     protected $user;
 
-    /**
-     * @param UserInterface $user
-     */
     public function __construct(UserInterface $user)
     {
         $this->user = $user;
     }
 
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;

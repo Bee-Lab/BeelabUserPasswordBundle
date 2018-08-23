@@ -35,20 +35,13 @@ abstract class ResetPassword
      */
     protected $token;
 
-    /**
-     * @param UserInterface $user
-     * @param string        $token
-     */
-    public function __construct(UserInterface $user, $token)
+    public function __construct(UserInterface $user, string $token)
     {
         $this->user = $user;
         $this->token = $token;
     }
 
-    /**
-     * @return UserInterface
-     */
-    public function getUser()
+    public function getUser(): UserInterface
     {
         return $this->user;
     }

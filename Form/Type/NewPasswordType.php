@@ -16,17 +16,11 @@ class NewPasswordType extends AbstractType
      */
     private $minLength;
 
-    /**
-     * @param int $minLength
-     */
     public function __construct($minLength = 8)
     {
         $this->minLength = $minLength;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -37,9 +31,6 @@ class NewPasswordType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'beelab_new_password';

@@ -4,14 +4,13 @@ namespace Beelab\UserPasswordBundle\Controller;
 
 use Beelab\UserPasswordBundle\Event\ChangePasswordEvent;
 use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
+use Beelab\UserPasswordBundle\Form\Type\NewPasswordType;
+use Beelab\UserPasswordBundle\Form\Type\ResetPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * ResetPasswordController.
- */
 class ResetPasswordController extends Controller
 {
     /**
@@ -25,7 +24,7 @@ class ResetPasswordController extends Controller
      */
     public function newAction(Request $request): Response
     {
-        $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\ResetPasswordType');
+        $form = $this->createForm(ResetPasswordType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.new_password',
@@ -64,13 +63,13 @@ class ResetPasswordController extends Controller
     public function confirmAction(string $token, Request $request): Response
     {
         $resetPassword = $this->getDoctrine()
-                              ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
-                              ->findOneByToken($token)
+            ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
+            ->findOneByToken($token)
         ;
         if (null === $resetPassword) {
             throw $this->createNotFoundException(sprintf('Token not found: %s', $token));
         }
-        $form = $this->createForm('Beelab\UserPasswordBundle\Form\Type\NewPasswordType');
+        $form = $this->createForm(NewPasswordType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->get('event_dispatcher')->dispatch(
                 'beelab_user.change_password',

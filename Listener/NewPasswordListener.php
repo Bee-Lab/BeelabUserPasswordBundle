@@ -7,9 +7,6 @@ use Beelab\UserPasswordBundle\Mailer\Mailer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\RouterInterface as Router;
 
-/**
- * NewPasswordListener.
- */
 class NewPasswordListener
 {
     /**
@@ -23,7 +20,7 @@ class NewPasswordListener
     private $mailer;
 
     /**
-     * @var RouterInterface
+     * @var Router
      */
     private $router;
 
@@ -32,12 +29,6 @@ class NewPasswordListener
      */
     private $class;
 
-    /**
-     * @param ObjectManager $em
-     * @param Mailer        $mailer
-     * @param Router        $router
-     * @param string        $class
-     */
     public function __construct(ObjectManager $em, Mailer $mailer, Router $router, string $class)
     {
         $this->em = $em;
