@@ -2,17 +2,30 @@
 
 namespace Beelab\UserPasswordBundle\Controller;
 
+use Beelab\UserBundle\Manager\UserManager;
 use Beelab\UserPasswordBundle\Event\ChangePasswordEvent;
 use Beelab\UserPasswordBundle\Event\NewPasswordEvent;
 use Beelab\UserPasswordBundle\Form\Type\NewPasswordType;
 use Beelab\UserPasswordBundle\Form\Type\ResetPasswordType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends AbstractController
 {
+    public $eventDispatcher;
+
+    public $userManager;
+
+    public function __construct(UserManager $userManager, EventDispatcherInterface $eventDispatcher)
+    {
+        $this->userManager = $userManager;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     /**
      * New password.
      *
@@ -26,7 +39,7 @@ class ResetPasswordController extends Controller
     {
         $form = $this->createForm(ResetPasswordType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->get('event_dispatcher')->dispatch(
+            $this->eventDispatcher->dispatch(
                 'beelab_user.new_password',
                 new NewPasswordEvent($form->getConfig()->getType()->getInnerType()->getUser(), 'beelab_new_password_confirm')
             )
@@ -71,14 +84,14 @@ class ResetPasswordController extends Controller
         }
         $form = $this->createForm(NewPasswordType::class);
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->get('event_dispatcher')->dispatch(
+            $this->eventDispatcher->dispatch(
                 'beelab_user.change_password',
                 new ChangePasswordEvent($resetPassword->getUser())
             )
             ;
             $data = $form->getData();
             $resetPassword->getUser()->setPlainPassword($data['password']);
-            $this->get('beelab_user.manager')->update($resetPassword->getUser(), false);
+            $this->userManager->update($resetPassword->getUser(), false);
             $this->getDoctrine()->getManager()->remove($resetPassword);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Password successfully reset.');
