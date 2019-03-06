@@ -63,7 +63,7 @@ class ResetPasswordController extends Controller
     public function confirmAction(string $token, Request $request): Response
     {
         $resetPassword = $this->getDoctrine()
-            ->getRepository($this->container->getParameter('beelab_user.password_reset_class'))
+            ->getRepository($this->getParameter('beelab_user.password_reset_class'))
             ->findOneByToken($token)
         ;
         if (null === $resetPassword) {
