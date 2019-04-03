@@ -39,7 +39,7 @@ Example:
 ```php
 <?php
 
-namespace AppBundle\Entity;
+namespace App\Entity;
 
 use Beelab\UserPasswordBundle\Entity\ResetPassword as BaseResetPassword;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,7 +67,7 @@ Insert in main configuration:
 
 # BeelabUserPassword configuration
 beelab_user_password:
-    password_reset_class: AppBundle\Entity\ResetPassword
+    password_reset_class: App\Entity\ResetPassword
     email_parameters:
         # following values need to be customized
         template: '::email_reset_password.html.twig'  # accept 'user' and 'url' parameters
@@ -111,8 +111,8 @@ You can extends bundle forms, then add to configuration:
 # app/config/config.yml
 
 beelab_user_password:
-    password_reset_form_type: AppBundle\Form\Type\PasswordResetFormType
-    new_password_form_type: AppBundle\Form\Type\NewPasswordFormType
+    password_reset_form_type: App\Form\Type\PasswordResetFormType
+    new_password_form_type: App\Form\Type\NewPasswordFormType
 ```
 
 The following is an example of template for `email_parameters` options (see above)
