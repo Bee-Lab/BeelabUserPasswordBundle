@@ -15,7 +15,7 @@ class NewPasswordTypeTest extends TypeTestCase
         parent::setUp();
 
         $validator = $this->getMockBuilder('\Symfony\Component\Validator\Validator\ValidatorInterface')->getMock();
-        $validator->method('validate')->will($this->returnValue(new ConstraintViolationList()));
+        $validator->method('validate')->willReturn(new ConstraintViolationList());
 
         $this->factory = Forms::createFormFactoryBuilder()
             ->addExtensions($this->getExtensions())

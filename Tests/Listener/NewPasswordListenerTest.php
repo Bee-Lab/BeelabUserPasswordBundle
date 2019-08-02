@@ -16,7 +16,7 @@ class NewPasswordListenerTest extends TestCase
         $class = 'StdClass';
         $event = $this->getMockBuilder('Beelab\UserPasswordBundle\Event\NewPasswordEvent')
             ->disableOriginalConstructor()->getMock();
-        $router->expects($this->once())->method('generate')->will($this->returnValue('foo'));
+        $router->expects($this->once())->method('generate')->willReturn('foo');
         $listener = new NewPasswordListener($manager, $mailer, $router, $class);
         $listener->onRequest($event);
     }

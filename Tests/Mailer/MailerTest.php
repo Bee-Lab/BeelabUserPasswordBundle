@@ -20,15 +20,15 @@ class MailerTest extends TestCase
         $user = $this->createMock('Beelab\UserBundle\User\UserInterface');
         $message = $this->getMockBuilder('Swift_Message')->disableOriginalConstructor()->getMock();
 
-        $user->expects($this->once())->method('getUsername')->will($this->returnValue('user@example.org'));
-        $templating->expects($this->once())->method('render')->will($this->returnValue('blah blah'));
-        $swift->expects($this->once())->method('createMessage')->will($this->returnValue($message));
-        $swift->expects($this->once())->method('send')->will($this->returnValue(1));
-        $message->expects($this->once())->method('setSubject')->with('A test')->will($this->returnSelf());
-        $message->expects($this->once())->method('setFrom')->with('noreply@example.org')->will($this->returnSelf());
-        $message->expects($this->once())->method('setTo')->with('user@example.org')->will($this->returnSelf());
-        $message->expects($this->once())->method('setBody')->with('blah blah')->will($this->returnSelf());
-        $message->expects($this->once())->method('setBcc')->with('info@example.org')->will($this->returnSelf());
+        $user->expects($this->once())->method('getUsername')->willReturn('user@example.org');
+        $templating->expects($this->once())->method('render')->willReturn('blah blah');
+        $swift->expects($this->once())->method('createMessage')->willReturn($message);
+        $swift->expects($this->once())->method('send')->willReturn(1);
+        $message->expects($this->once())->method('setSubject')->with('A test')->willReturnSelf();
+        $message->expects($this->once())->method('setFrom')->with('noreply@example.org')->willReturnSelf();
+        $message->expects($this->once())->method('setTo')->with('user@example.org')->willReturnSelf();
+        $message->expects($this->once())->method('setBody')->with('blah blah')->willReturnSelf();
+        $message->expects($this->once())->method('setBcc')->with('info@example.org')->willReturnSelf();
 
         $mailer = new Mailer($swift, $templating, $parameters);
         $mailer->sendResetPassword('/foo', $user);
