@@ -23,11 +23,6 @@ class Mailer
      */
     private $parameters;
 
-    /**
-     * @param Swift_Mailer    $mailer
-     * @param EngineInterface $templating
-     * @param array           $parameters
-     */
     public function __construct(Swift_Mailer $mailer, EngineInterface $templating, array $parameters)
     {
         $this->mailer = $mailer;
@@ -35,10 +30,6 @@ class Mailer
         $this->parameters = $parameters;
     }
 
-    /**
-     * @param string        $url
-     * @param UserInterface $user
-     */
     public function sendResetPassword(string $url, UserInterface $user): void
     {
         $template = $this->parameters['template'];

@@ -39,8 +39,6 @@ class NewPasswordListener
 
     /**
      * When user request a password reset, save a token and send user an email with confirmation link.
-     *
-     * @param NewPasswordEvent $event
      */
     public function onRequest(NewPasswordEvent $event): void
     {

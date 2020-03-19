@@ -17,10 +17,6 @@ class ResetPasswordController extends Controller
      * New password.
      *
      * @Route("/password/new", name="beelab_new_password", methods={"GET", "POST"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function newAction(Request $request): Response
     {
@@ -54,11 +50,6 @@ class ResetPasswordController extends Controller
      * Confirm bew password.
      *
      * @Route("/password/new/confirm/{token}", name="beelab_new_password_confirm", methods={"GET", "POST"})
-     *
-     * @param string  $token
-     * @param Request $request
-     *
-     * @return Response
      */
     public function confirmAction(string $token, Request $request): Response
     {

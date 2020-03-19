@@ -13,14 +13,14 @@
     ],
     "require": {
         "php": "^7.1",
-        "beelab/user-bundle": "^2.4",
+        "beelab/user-bundle": "^2.5",
         "doctrine/orm": "^2.6",
-        "symfony/framework-bundle": "^3.4|^4.1",
-        "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/templating": "^3.3|^4.1"
+        "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0",
+        "symfony/swiftmailer-bundle": "^3.3",
+        "symfony/templating": "^3.4 || ^4.4 || ^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0|^8.0"
+        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.0"
     },
     "autoload": {
         "psr-4": { "Beelab\\UserPasswordBundle\\": "" }
